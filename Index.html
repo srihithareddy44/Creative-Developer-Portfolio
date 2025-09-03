@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Creative Full Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <header>
+    <h1>Creative Developer Portfolio</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="nav-tabs">
+    <button onclick="showSection('portfolio')">🌐 Portfolio</button>
+    <button onclick="showSection('todo')">📝 To-Do List</button>
+    <button onclick="showSection('products')">🛍️ Products</button>
+  </div>
+
+  <!-- Portfolio -->
+  <section id="portfolioSection">
+    <section id="about">
+      <h2>About Me</h2>
+      <p>I’m a frontend developer passionate about creating responsive and interactive web applications using HTML, CSS, and JavaScript.</p>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <ul>
+        <li>📝 To-Do List with `localStorage`</li>
+        <li>🛒 Product Page with Filtering & Sorting</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <form onsubmit="alert('Message sent!'); return false;">
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea placeholder="Your Message..." required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </section>
+
+  <!-- To-Do List -->
+  <section id="todoSection" class="hidden">
+    <h2>📝 My To-Do List</h2>
+    <input id="taskInput" type="text" placeholder="Enter new task..." />
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+  </section>
+
+  <!-- Products -->
+  <section id="productsSection" class="hidden">
+    <h2>🛍️ Product Listings</h2>
+    <div class="filters">
+      <select id="categoryFilter" onchange="filterProducts()">
+        <option value="all">All Categories</option>
+        <option value="tech">Tech</option>
+        <option value="fashion">Fashion</option>
+      </select>
+
+      <select id="sortBy" onchange="sortProducts()">
+        <option value="default">Sort by</option>
+        <option value="priceLow">Price: Low to High</option>
+        <option value="priceHigh">Price: High to Low</option>
+      </select>
+    </div>
+    <div class="products" id="productGrid"></div>
+  </section>
+
+  <footer>© 2025 Creative Dev. All rights reserved.</footer>
+
+</body>
+</html>
