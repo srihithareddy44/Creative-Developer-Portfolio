@@ -1,0 +1,81 @@
+// NAVIGATION
+function showSection(section) {
+  document.getElementById('portfolioSection').classList.add('hidden');
+  document.getElementById('todoSection').classList.add('hidden');
+  document.getElementById('productsSection').classList.add('hidden');
+
+  if (section === 'portfolio') document.getElementById('portfolioSection').classList.remove('hidden');
+  if (section === 'todo') document.getElementById('todoSection').classList.remove('hidden');
+  if (section === 'products') document.getElementById('productsSection').classList.remove('hidden');
+}
+
+// TO-DO LOGIC
+function loadTasks() {
+  const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+  const taskList = document.getElementById('taskList');
+  taskList.innerHTML = '';
+  tasks.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.textContent = task;
+    li.onclick = () => removeTask(index);
+    taskList.appendChild(li);
+  });
+}
+
+function addTask() {
+  const input = document.getElementById('taskInput');
+  const task = input.value.trim();
+  if (task) {
+    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    tasks.push(task);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    input.value = '';
+    loadTasks();
+  }
+}
+
+function removeTask(index) {
+  const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+  tasks.splice(index, 1);
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+  loadTasks();
+}
+
+// PRODUCT LOGIC
+const products = [
+  { name: "Smart Watch", price: 99, category: "tech" },
+  { name: "Sneakers", price: 59, category: "fashion" },
+  { name: "Laptop", price: 899, category: "tech" },
+  { name: "Jacket", price: 79, category: "fashion" }
+];
+
+function displayProducts(list) {
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = '';
+  list.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'product';
+    div.innerHTML = `<h4>${p.name}</h4><p>💲${p.price}</p><p>${p.category}</p>`;
+    grid.appendChild(div);
+  });
+}
+
+function filterProducts() {
+  const filter = document.getElementById('categoryFilter').value;
+  const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+  displayProducts(filtered);
+}
+
+function sortProducts() {
+  const sort = document.getElementById('sortBy').value;
+  let sorted = [...products];
+  if (sort === 'priceLow') sorted.sort((a, b) => a.price - b.price);
+  if (sort === 'priceHigh') sorted.sort((a, b) => b.price - a.price);
+  displayProducts(sorted);
+}
+
+// INIT
+window.onload = () => {
+  loadTasks();
+  displayProducts(products);
+};
